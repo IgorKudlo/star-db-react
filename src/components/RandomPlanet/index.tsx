@@ -15,13 +15,7 @@ export const RandomPlanet: FC = () => {
   useEffect(() => {
     const id = Math.floor(Math.random()*25) + 2;
     const swapiService = new SwapiService();
-    swapiService.getPlanet(id).then((planet) => setState({
-      id: id,
-      name: planet.name,
-      population: planet.population,
-      rotationPeriod: planet.rotation_period,
-      diameter: planet.diameter,
-    }));
+    swapiService.getPlanet(id).then((planet) => setState(planet));
   }, []);
 
   const { id, name, population, rotationPeriod, diameter } = state;
