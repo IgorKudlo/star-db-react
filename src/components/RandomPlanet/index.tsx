@@ -1,10 +1,11 @@
 import React, {FC, useEffect, useState} from 'react';
 import { SwapiService } from '../../services/swapi-service';
+import { Spinner } from '../Spinner';
 import './styles.css';
 
 export const RandomPlanet: FC = () => {
 
-  const [state, setState] = useState({
+  const [planet, setPlanet] = useState({
     id: 0,
     name: null,
     population: null,
@@ -12,16 +13,32 @@ export const RandomPlanet: FC = () => {
     diameter: null,
   });
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const id = Math.floor(Math.random()*25) + 2;
     const swapiService = new SwapiService();
-    swapiService.getPlanet(id).then((planet) => setState(planet));
+    swapiService.getPlanet(id).then((planet) => setPlanet(planet));
+    setLoading(false);
   }, []);
 
-  const { id, name, population, rotationPeriod, diameter } = state;
+  const spinner = loading ? <Spinner /> : null;
+  const content = !loading ? <PlanetView planet={planet} /> : null;
 
   return (
     <div className="random-planet jumbotron rounded">
+      {spinner}
+      {content}
+    </div>
+  );
+};
+
+const PlanetView = ({ planet }: any) => {
+  console.log(planet)
+  const { id, name, population, rotationPeriod, diameter } = planet;
+
+  return (
+    <React.Fragment>
       <img className="planet-image"
            src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
       <div>
@@ -41,6 +58,6 @@ export const RandomPlanet: FC = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
