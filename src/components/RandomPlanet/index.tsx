@@ -11,17 +11,26 @@ export const RandomPlanet: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
+  useEffect(() => {
+    updatePlanet();
+  }, []);
+
+  const updatePlanet = () => {
+    const id = Math.floor(Math.random()*25) + 2;
+
+    const swapiService = new SwapiService();
+    swapiService.getPlanet(id)
+      .then((planet) => {
+        setPlanet(planet);
+        setLoading(false);
+      })
+      .catch(onError);
+  }
+
   const onError = ():void => {
     setError(true);
     setLoading(false);
   }
-
-  useEffect(() => {
-    const id = Math.floor(Math.random()*25) + 2;
-    const swapiService = new SwapiService();
-    swapiService.getPlanet(id).then((planet) => setPlanet(planet)).catch(onError);
-    setLoading(false);
-  }, []);
 
   const hasData = !(loading || error);
 
