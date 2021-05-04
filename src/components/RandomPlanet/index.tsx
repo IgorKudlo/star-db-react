@@ -1,21 +1,15 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { SwapiService } from '../../services/swapi-service';
+import { PlanetType } from '../../types/planet';
 import { Spinner } from '../Spinner';
 import { ErrorIndicator } from '../ErrorIndicator';
 import './styles.css';
 
 export const RandomPlanet: FC = () => {
 
-  const [planet, setPlanet] = useState({
-    id: 0,
-    name: null,
-    population: null,
-    rotationPeriod: null,
-    diameter: null,
-  });
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [planet, setPlanet] = useState<PlanetType | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   const onError = () => {
     setError(true);
@@ -33,7 +27,7 @@ export const RandomPlanet: FC = () => {
 
   const errorMessage = error ? <ErrorIndicator /> : null;
   const spinner = loading ? <Spinner /> : null;
-  const content = hasData ? <PlanetView planet={planet} /> : null;
+  const content = hasData && planet !== null ? <PlanetView planet={planet} /> : null;
 
   return (
     <div className="random-planet jumbotron rounded">
@@ -44,13 +38,14 @@ export const RandomPlanet: FC = () => {
   );
 };
 
-const PlanetView = ({ planet }: any) => {
+const PlanetView: FC<{planet: PlanetType}> = ({ planet }) => {
   const { id, name, population, rotationPeriod, diameter } = planet;
 
   return (
     <React.Fragment>
       <img className="planet-image"
-           src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
+           src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+            alt="pic-planet" />
       <div>
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
