@@ -11,7 +11,7 @@ export const RandomPlanet: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
-  const onError = () => {
+  const onError = ():void => {
     setError(true);
     setLoading(false);
   }

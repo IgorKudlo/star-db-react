@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import icon from './death-star.png';
 import './styles.css';
 
-export const ErrorIndicator = () => {
+export const ErrorIndicator: FC = () => {
   return (
     <div className="error-indicator">
       <img src={icon} alt="Error icon" />
