@@ -16,7 +16,7 @@ export const RandomPlanet: FC = () => {
       updatePlanet();
     }, 5000);
 
-    return function clearPlanetInterval() {
+    return () => {
       clearInterval(showPlanetInterval);
     }
   });
@@ -25,7 +25,7 @@ export const RandomPlanet: FC = () => {
     updatePlanet();
   }, []);
 
-  const updatePlanet = () => {
+  const updatePlanet = (): void => {
     const id = Math.floor(Math.random()*18) + 2;
     const swapiService = new SwapiService();
     swapiService.getPlanet(id)
@@ -36,7 +36,7 @@ export const RandomPlanet: FC = () => {
       .catch(onError);
   }
 
-  const onError = ():void => {
+  const onError = (): void => {
     setError(true);
     setLoading(false);
   }
