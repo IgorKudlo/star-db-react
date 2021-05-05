@@ -8,10 +8,15 @@ import './styles.css';
 export const App: FC = () => {
 
   const [showRandomPlanet, setShowRandomPlanet] = useState<boolean>(true);
+  const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
 
   const toggleRandomPlanet = (e :React.MouseEvent<HTMLButtonElement>): void => {
     setShowRandomPlanet(!showRandomPlanet);
-  }
+  };
+
+  const onPersonSelected = (id: string): void => {
+    setSelectedPerson(id);
+  };
 
   const planet = showRandomPlanet ? <RandomPlanet /> : null;
 
@@ -28,7 +33,7 @@ export const App: FC = () => {
 
       <div className="row mb2">
         <div className="col-md-6">
-          <ItemList />
+          <ItemList onItemSelected={onPersonSelected} />
         </div>
         <div className="col-md-6">
           <PersonDetails />

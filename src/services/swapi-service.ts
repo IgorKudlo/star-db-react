@@ -47,7 +47,7 @@ export class SwapiService {
     return item.url.match(idRegExp)[1];
   }
 
-  _transformPlanet(planet: any): PlanetType {
+  _transformPlanet = (planet: any): PlanetType => {
     return {
       id: this._extractId(planet),
       name: planet.name,
@@ -57,7 +57,7 @@ export class SwapiService {
     }
   }
 
-  _transformStarship(starship: any): object {
+  _transformStarship = (starship: any): object => {
     return {
       id: this._extractId(starship),
       name: starship.name,
@@ -71,7 +71,7 @@ export class SwapiService {
     }
   }
 
-  _transformPerson(person: any): object {
+  _transformPerson = (person: any): object => {
     return {
       id: this._extractId(person),
       name: person.name,
