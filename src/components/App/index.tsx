@@ -36,7 +36,7 @@ export const App: FC = () => {
           <ItemList onItemSelected={onPersonSelected} />
         </div>
         <div className="col-md-6">
-          <PersonDetails />
+          <PersonDetails personId={selectedPerson} />
         </div>
       </div>
     </div>
