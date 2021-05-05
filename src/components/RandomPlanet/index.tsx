@@ -12,12 +12,21 @@ export const RandomPlanet: FC = () => {
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
+    const showPlanetInterval = setInterval(() => {
+      updatePlanet();
+    }, 5000);
+
+    return function clearPlanetInterval() {
+      clearInterval(showPlanetInterval);
+    }
+  });
+
+  useEffect(() => {
     updatePlanet();
   }, []);
 
   const updatePlanet = () => {
-    const id = Math.floor(Math.random()*25) + 2;
-
+    const id = Math.floor(Math.random()*18) + 2;
     const swapiService = new SwapiService();
     swapiService.getPlanet(id)
       .then((planet) => {
